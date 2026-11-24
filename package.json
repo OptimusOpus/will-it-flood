@@ -1,13 +1,13 @@
 {
-  "name": "chrome-extension-boilerplate-react-vite",
+  "name": "will-it-flood",
   "version": "0.5.0",
-  "description": "chrome extension boilerplate",
+  "description": "Brisbane and Logan property flood mapping for Chrome",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite.git"
+    "url": "https://github.com/OptimusOpus/will-it-flood.git"
   },
   "type": "module",
   "scripts": {
@@ -16,18 +16,16 @@
     "clean:turbo": "rimraf .turbo && turbo clean:turbo",
     "clean": "pnpm clean:bundle && pnpm clean:turbo && pnpm clean:node_modules",
     "clean:install": "pnpm clean:node_modules && pnpm install --frozen-lockfile",
-    "type-check": "turbo type-check",
-    "base-build": "pnpm clean:bundle && turbo build",
-    "build": "pnpm set-global-env && pnpm base-build",
-    "build:firefox": "pnpm set-global-env CLI_CEB_FIREFOX=true && pnpm base-build",
-    "base-dev": "pnpm clean:bundle && turbo ready && turbo watch dev",
-    "dev": "pnpm set-global-env CLI_CEB_DEV=true && pnpm base-dev",
-    "dev:firefox": "pnpm set-global-env CLI_CEB_DEV=true CLI_CEB_FIREFOX=true && pnpm base-dev",
-    "zip": "pnpm build && pnpm -F zipper zip",
-    "zip:firefox": "pnpm build:firefox && pnpm -F zipper zip",
-    "e2e": "pnpm zip && turbo e2e",
-    "e2e:firefox": "pnpm zip:firefox && turbo e2e",
-    "lint": "turbo lint --continue",
+    "type-check": "tsc --noEmit -p pages/popup/tsconfig.json && tsc --noEmit -p chrome-extension/tsconfig.json && tsc --noEmit -p tests/tsconfig.json",
+    "build": "vite build --config chrome-extension/vite.config.mts",
+    "build:firefox": "pnpm build",
+    "dev": "pnpm build --watch",
+    "dev:firefox": "pnpm dev",
+    "zip": "pnpm build && turbo ready --filter=@extension/zipper && pnpm --filter @extension/zipper zip",
+    "zip:firefox": "pnpm build:firefox && turbo ready --filter=@extension/zipper && cross-env CLI_CEB_FIREFOX=true pnpm --filter @extension/zipper zip",
+    "e2e": "pnpm build && pnpm --filter @extension/e2e e2e",
+    "e2e:firefox": "pnpm zip:firefox && cross-env CLI_CEB_FIREFOX=true pnpm --filter @extension/e2e e2e",
+    "lint": "eslint pages/popup/src chrome-extension/manifest.ts",
     "lint:fix": "turbo lint:fix --continue",
     "format": "turbo format --continue -- --cache --cache-location node_modules/.cache/.prettiercache",
     "prepare": "husky",
@@ -35,7 +33,8 @@
     "copy-env": "bash bash-scripts/copy_env.sh",
     "set-global-env": "bash bash-scripts/set_global_env.sh",
     "module-manager": "pnpm -F module-manager start",
-    "postinstall": "pnpm copy-env"
+    "postinstall": "pnpm copy-env",
+    "test": "tsx --test tests/*.test.ts"
   },
   "dependencies": {
     "react": "^19.1.0",
@@ -93,5 +92,6 @@
   "packageManager": "pnpm@10.11.0",
   "engines": {
     "node": ">=22.15.1"
-  }
+  },
+  "author": "Taylor"
 }

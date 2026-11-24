@@ -1,58 +1,41 @@
 import { config as baseConfig } from './wdio.conf.js';
 import { getChromeExtensionPath, getFirefoxExtensionPath } from '../utils/extension-path.js';
-import { IS_CI, IS_FIREFOX } from '@extension/env';
 import { readdir, readFile } from 'node:fs/promises';
-import { extname, join } from 'node:path';
+import { resolve } from 'node:path';
 
-const extName = IS_FIREFOX ? '.xpi' : '.zip';
-const extensions = await readdir(join(import.meta.dirname, '../../../dist-zip'));
-const latestExtension = extensions.filter(file => extname(file) === extName).at(-1);
-const extPath = join(import.meta.dirname, `../../../dist-zip/${latestExtension}`);
-const bundledExtension = (await readFile(extPath)).toString('base64');
+const firefox = process.env.CLI_CEB_FIREFOX === 'true';
+const dist = resolve(import.meta.dirname, '../../../dist');
+const chromeBinary = process.env.CHROME_BINARY;
 
 const chromeCapabilities = {
   browserName: 'chrome',
-  acceptInsecureCerts: true,
+  ...(chromeBinary ? {} : { browserVersion: 'stable' }),
   'goog:chromeOptions': {
-    args: [
-      '--disable-web-security',
-      '--disable-gpu',
-      '--no-sandbox',
-      '--disable-dev-shm-usage',
-      ...(IS_CI ? ['--headless'] : []),
-    ],
-    prefs: { 'extensions.ui.developer_mode': true },
-    extensions: [bundledExtension],
-  },
-};
-
-const firefoxCapabilities = {
-  browserName: 'firefox',
-  acceptInsecureCerts: true,
-  'moz:firefoxOptions': {
-    args: [...(IS_CI ? ['--headless'] : [])],
+    ...(chromeBinary ? { binary: chromeBinary } : {}),
+    args: ['--headless', `--load-extension=${dist}`],
   },
 };
 
 export const config: WebdriverIO.Config = {
   ...baseConfig,
-  capabilities: IS_FIREFOX ? [firefoxCapabilities] : [chromeCapabilities],
-
-  maxInstances: IS_CI ? 10 : 1,
+  specs: ['../specs/page-popup.test.ts'],
+  capabilities: firefox
+    ? [{ browserName: 'firefox', 'moz:firefoxOptions': { args: ['-headless'] } }]
+    : [chromeCapabilities],
+  maxInstances: 1,
   logLevel: 'error',
-  execArgv: IS_CI ? [] : ['--inspect'],
-  before: async ({ browserName }: WebdriverIO.Capabilities, _specs, browser: WebdriverIO.Browser) => {
-    if (browserName === 'firefox') {
-      await browser.installAddOn(bundledExtension, true);
-
-      browser.addCommand('getExtensionPath', async () => getFirefoxExtensionPath(browser));
-    } else if (browserName === 'chrome') {
-      browser.addCommand('getExtensionPath', async () => getChromeExtensionPath(browser));
-    }
-  },
-  afterTest: async () => {
-    if (!IS_CI) {
-      await browser.pause(500);
+  before: async (_caps, _specs, browser) => {
+    if (firefox) {
+      const archiveDir = resolve(dist, '../dist-zip');
+      const file = (await readdir(archiveDir))
+        .filter(path => path.endsWith('.xpi'))
+        .sort()
+        .at(-1);
+      if (!file) throw new Error('Build the Firefox extension before starting the browser test.');
+      await browser.installAddOn((await readFile(resolve(archiveDir, file))).toString('base64'), true);
+      browser.addCommand('getExtensionPath', () => getFirefoxExtensionPath(browser));
+    } else {
+      browser.addCommand('getExtensionPath', () => getChromeExtensionPath(browser));
     }
   },
 };

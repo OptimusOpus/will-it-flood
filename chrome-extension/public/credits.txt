@@ -1,0 +1,39 @@
+Will It Flood? by Taylor
+
+Property boundaries — Parcel
+© Brisbane City Council and © State of Queensland (Department of Resources)
+https://data.brisbane.qld.gov.au/explore/dataset/property-boundaries-parcel/
+
+Property Address locations
+© Brisbane City Council
+https://data.brisbane.qld.gov.au/explore/dataset/property-address-locations/
+
+Flood — Awareness — Property Parcel Metrics and Metric Reference
+© Brisbane City Council
+https://data.brisbane.qld.gov.au/explore/dataset/flood-awareness-property-parcel-metrics/
+https://data.brisbane.qld.gov.au/explore/dataset/flood-awareness-property-parcel-metrics-reference/
+
+All four datasets are licensed under Creative Commons Attribution 4.0 International.
+https://creativecommons.org/licenses/by/4.0/
+
+This extension matches Council address records to parcels and summarises
+the highest mapped likelihood for each flood source, the overland flow
+flag, modelled flood coverage, historical flood levels and estimated ground elevations.
+
+Logan City Council
+
+Primary property addresses — © Logan City Council, CC BY 3.0 Australia
+https://www.arcgis.com/home/item.html?id=38de8363dd93425199ac449eac4b1891
+https://creativecommons.org/licenses/by/3.0/au/
+
+Latest cadastre — Logan City Council
+https://services5.arcgis.com/ZUCWDRj8F77Xo351/arcgis/rest/services/VIEW_Latest_Cadastre/FeatureServer/0
+
+Logan Flood Portal consolidated mapping and flood study extents (May 2025) — Logan City Council
+https://arcgis.lcc.wspdigital.com/server/rest/services/FloodPortal/ConsolidatedFloodData_20250505/MapServer
+https://arcgis.lcc.wspdigital.com/server/rest/services/FloodPortal/AllStudyExtent_20250505/MapServer/0
+https://arcgis.lcc.wspdigital.com/server/rest/services/FloodPortal/OtherInformation_20241120/MapServer/2
+https://www.logan.qld.gov.au/residents/disasters-and-emergencies/types-of-disasters/flood
+
+For Logan, the extension joins Council addresses to parcels and checks
+each selected lot boundary against Council’s published flood map layers.

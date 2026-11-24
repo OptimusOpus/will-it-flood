@@ -1,15 +1,7 @@
-import '@src/index.css';
-import Popup from '@src/Popup';
+import './index.css';
+import Popup from './Popup';
 import { createRoot } from 'react-dom/client';
 
-const init = () => {
-  const appContainer = document.querySelector('#app-container');
-  if (!appContainer) {
-    throw new Error('Can not find #app-container');
-  }
-  const root = createRoot(appContainer);
-
-  root.render(<Popup />);
-};
-
-init();
+const appContainer = document.getElementById('app-container');
+if (!appContainer) throw new Error('Missing popup container.');
+createRoot(appContainer).render(<Popup />);

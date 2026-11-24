@@ -1,275 +1,78 @@
-<div align="center">
-
-<picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/99cb6303-64e4-4bed-bf3f-35735353e6de" />
-    <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/a5dbf71c-c509-4c4f-80f4-be88a1943b0a" />
-    <img alt="Logo" src="https://github.com/user-attachments/assets/99cb6303-64e4-4bed-bf3f-35735353e6de" />
-</picture>
-
-![](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
-![](https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=typescript&logoColor=white)
-![](https://badges.aleen42.com/src/vitejs.svg)
-
-![GitHub action badge](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/actions/workflows/build-zip.yml/badge.svg)
-![GitHub action badge](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/actions/workflows/lint.yml/badge.svg)
-
-<a href="https://discord.gg/4ERQ6jgV9a" target="_blank"><img src="https://discord.com/api/guilds/1263404974830915637/widget.png"/></a>
-
-> This boilerplate
-> has [Legacy version](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/tree/legacy)
-
-</div>
-
-> [!NOTE]
-> This project is listed in the [Awesome Vite](https://github.com/vitejs/awesome-vite)
-
-> [!TIP]
-> Share storage state between all pages
->
-> https://github.com/user-attachments/assets/3b8e189f-6443-490e-a455-4f9570267f8c
-
-## Table of Contents
-
-- [Intro](#intro)
-- [Features](#features)
-- [Structure](#structure)
-    - [ChromeExtension](#structure-chrome-extension)
-    - [Packages](#structure-packages)
-    - [Pages](#structure-pages)
-- [Installation](#installation)
-    - [Chrome](#installation-chrome)
-    - [Firefox](#installation-firefox)
-- [Install dependency](#install-dependency)
-    - [For root](#install-dependency-for-root)
-    - [For module](#install-dependency-for-module)
-- [Environment variables](#env-variables)
-    - [Add new](#env-variables-new)
-    - [Set via CLI](#env-variables-cli-set)
-- [Troubleshooting](#troubleshooting)
-    - [Hot module reload seems to have frozen](#hot-module-reload-seems-to-have-frozen)
-    - [Imports not resolving correctly](#imports-not-resolving-correctly)
-- [Community](#community)
-- [Debugging](#debugging)
-- [Reference](#reference)
-- [Star History](#star-history)
-- [Contributors](#contributors)
-
-## Intro
-
-This boilerplate helps you create Chrome/Firefox extensions using React and Typescript. It improves
-the build speed and development experience by using Vite and Turborepo.
-
-## Features
-
-- [React](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwindcss](https://tailwindcss.com/)
-- [Vite](https://vitejs.dev/) with [Rollup](https://rollupjs.org/)
-- [Turborepo](https://turbo.build/repo)
-- [Prettier](https://prettier.io/)
-- [ESLint](https://eslint.org/)
-- [Chrome Extensions Manifest Version 3](https://developer.chrome.com/docs/extensions/mv3/intro/)
-- [Custom i18n package](/packages/i18n/)
-- [Custom HMR (Hot Module Rebuild) plugin](/packages/hmr)
-- [End-to-end testing with WebdriverIO](https://webdriver.io/)
-
-## Installation
-
-1. Clone this repository.( ```git clone https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite``` )
-2. Ensure your node version is >= than in `.nvmrc` file, recommend to use [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#intro)
-3. Edit `/packages/i18n/locales/`{your locale(s)}/`messages.json`
-4. In the objects `extensionDescription` and `extensionName`, change the `message` fields (leave `description` alone)
-5. Install pnpm globally: `npm install -g pnpm`
-6. Run `pnpm install`
-7. Check if you have that configuration in your IDE/Editor:
-    - <b>VS Code</b>:
-        - Installed [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-        - Installed [Prettier extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-        - Enabled `Typescript Workbench version` in settings:
-            - CTRL + SHIFT + P -> Search: `Typescript: Select Typescript version...` -> `Use Workbench version`
-            - [Read more](https://code.visualstudio.com/docs/languages/typescript#_using-newer-typescript-versions)
-        - Optional, for imports to work correctly in WSL, you might need to install the [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) extension and connect to WSL remotely from VS Code. See overview section in the extension page for more information.
-    - <b>WebStorm</b>:
-      - Configured [ESLint](https://www.jetbrains.com/help/webstorm/eslint.html#ws_eslint_configure_run_eslint_on_save)
-      - Configured [Prettier](https://prettier.io/docs/en/webstorm.html)
-      - Optional, but useful `File | Settings | Tools | Actions on Save`\
-      -> `Optimize imports` and `Reformat code`
-8. Run `pnpm update-version <version>` for change the `version` to the desired version of your extension.
-
-> [!IMPORTANT]
-> On Windows, make sure you have WSL enabled and Linux distribution (e.g. Ubuntu) installed on WSL.
-> 
-> [Installation Guide](https://learn.microsoft.com/en-us/windows/wsl/install)
+# Will It Flood?
 
-<b>Then, depending on the target browser:</b>
+A local Chrome extension by Taylor for checking flood mapping in the Brisbane and Logan City Council areas. Enter a street address or lot and plan in the toolbar popup. If several properties match, choose the property you want. An address lookup checks each current parcel linked to that property. A lot-and-plan lookup checks the specified lot. Each council’s result uses its own map terminology.
 
-### For Chrome: <a name="installation-chrome"></a>
+## Load or reload in Chrome
 
-1. Run:
-    - Dev: `pnpm dev` (on Windows, you should run as administrator;
-      see [issue#456](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/issues/456))
-    - Prod: `pnpm build`
-2. Open in browser - `chrome://extensions`
-3. Check - <kbd>Developer mode</kbd>
-4. Click - <kbd>Load unpacked</kbd> in the upper left corner
-5. Select the `dist` directory from the boilerplate project
+1. Open `chrome://extensions` and turn on **Developer mode**.
+2. If you already loaded this checkout’s `dist/` folder, click **Reload** on the **Will It Flood?** card. For a first installation, choose **Load unpacked** and select `dist/`.
+3. If you use the portable ZIP, extract the new ZIP into the folder Chrome already loads and click **Reload**, or choose **Load unpacked** for a new folder. Select the folder that directly contains `manifest.json`.
+4. Open the Extensions menu, pin **Will It Flood?**, then open the toolbar popup.
 
-### For Firefox: <a name="installation-firefox"></a>
+The extension queries public services directly. It needs an internet connection and works without an account, API key or local server. [Chrome’s unpacked extension guide](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked)
 
-1. Run:
-    - Dev: `pnpm dev:firefox`
-    - Prod: `pnpm build:firefox`
-2. Open in browser - `about:debugging#/runtime/this-firefox`
-3. Click - <kbd>Load Temporary Add-on...</kbd> in the upper right corner
-4. Select the `./dist/manifest.json` file from the boilerplate project
+## Install on an Android phone
 
-> [!NOTE]
-> In Firefox, you load add-ons in temporary mode. That means they'll disappear after each browser close. You have to
-> load the add-on on every browser launch.
+Copy `dist-zip/will-it-flood-android.apk` to the phone, open the file in **Files** or **Downloads**, and tap **Install**. If Android asks, allow that file manager to install this app. Open **Will It Flood?** from the app drawer and type or paste an address. This standalone app uses the same council lookups and opens official reports in your browser. Automatic listing prefill is available in the desktop Chrome extension.
 
-## Install dependency for turborepo: <a name="install-dependency"></a>
+## Try a property
 
-### For root: <a name="install-dependency-for-root"></a>
+| Search for | What to look for |
+| --- | --- |
+| **105 George Street, Beenleigh QLD 4207** | Logan City Council’s Beenleigh Customer Service Centre. The popup resolves it to **1RP128941**. On 24 November 2026 the overland flow layer intersected the lot. |
+| **12 Cardwell Court, Meadowbrook QLD 4131** | Riverdale Park, lot **997SP104713**. On 24 November 2026 different parts of the lot intersected high, moderate and low risk areas. Both the river and creek results showed a 20% annual-chance scenario. [Council park directory](https://www.logan.qld.gov.au/community/parks-and-gardens/holding-an-event-in-a-park) |
+| **119 Lamington Street, New Farm** | Brisbane Powerhouse, lot **2RP210504**. The January 2011 river level is 3.0 m AHD. Council estimates minimum ground at 3.4 m AHD. The popup links to the FloodWise report. |
 
-1. Run `pnpm i <package> -w`
+Choose **Check flood mapping**, or paste the lot and plan directly. **Change address** returns to the search. By default both council registers are searched. You can also select one council. If only one register answers, you can confirm a returned parcel or retry the search.
 
-### For module: <a name="install-dependency-for-module"></a>
+On an individual Queensland realestate.com.au or Domain listing, the popup can prefill the address from the tab title. Check the prefilled address and submit it. Manual entry works from any tab.
 
-1. Run `pnpm i <package> -F <module name>`
+For a property with several lots, the popup summarises the findings across the holding. Expand a lot to see its result. A missing assessment appears separately. For a Brisbane strata address, a separate **Common property** entry shows the scheme land when Council confirms a current common lot.
 
-`package` - Name of the package you want to install e.g. `nodemon` \
-`module-name` - You can find it inside each `package.json` under the key `name`, e.g. `@extension/content-script`, you
-can use only `content-script` without `@extension/` prefix
+## Reading a Logan result
 
-## How do I disable modules I'm not using?
+The lookup matches a Logan City Council primary address to its current cadastral lots via Council’s property key. It checks each lot boundary against layers from the **May 2025 Logan Flood Portal** map service. One lot can intersect several features or risk categories. A result describes the land. It cannot tell you whether floodwater entered a building, reached a particular floor, or how deep it was there. [Council’s flood studies and reports](https://www.logan.qld.gov.au/residents/disasters-and-emergencies/types-of-disasters/flood) · [Map layers](https://arcgis.lcc.wspdigital.com/server/rest/services/FloodPortal/ConsolidatedFloodData_20250505/MapServer)
 
-[Read here](packages/module-manager/README.md)
+- **Flood risk areas** combine the likelihood of flooding with how hazardous floodwater may be, including its depth and speed. **Investigation area** means Council needs further study to establish the risk. Where Council identifies an investigation area without a risk category, the popup qualifies the river, creek and isolation information. Council’s local property notices also appear alongside the map findings.
+- **River flooding** and **Creek flooding** show the most frequent modelled scenario from the published study extents that intersects the lot, including its boundary. The annual percentage is the chance of an event of that size or larger in a given year. The study scenarios include projected climate conditions. Council also models the probable maximum flood, which has no assigned annual percentage here. The portal separately maps current-climate scenarios and local depths. [Logan flood study extents](https://arcgis.lcc.wspdigital.com/server/rest/services/FloodPortal/AllStudyExtent_20250505/MapServer/0)
+- **High flow area** identifies land that carries hazardous floodwater. **Overland flow** identifies land that surface runoff may cross during heavy rain. **Isolation** means rising water can cut access. A low flood island can subsequently go under water. A high flood island can lose access while higher ground remains above water. [Council’s Flood Portal guide](https://s3-ap-southeast-2.amazonaws.com/lcc-docs-planning/root/Flood/Logan%20Flood%20Portal%20-%20Help%20Guide.pdf)
+- **No overlap in the checked layers** applies only to this lot and the layers the popup successfully checked. Local waterways can lack a completed study, and flooding remains possible. If only some layers answer, the popup names the unavailable layers and displays any verified intersections. A missing boundary or incomplete checks without a verified intersection give **Flood lookup unavailable**.
+- **Open property in Logan Flood Portal** uses Council’s property key. Select **Property Flood Report** there for Council’s assessment and maps. Council’s guide says the interactive portal is available from Australia. A multi-lot property report may cover a larger area than a directly entered lot. Council publishes changes to its mapping and future planning instruments separately. [Logan Flood Portal](https://flood.logan.qld.gov.au/) · [Council mapping updates](https://www.logan.qld.gov.au/planning-and-building/Flood-maps)
 
-## Environment variables
+Council lists the Beenleigh example as a public service centre. Queensland’s land parcel register independently identifies its lot as Beenleigh, Logan City. The extension does not need to contact the state register during a lookup. [Council service centres](https://www.logan.qld.gov.au/connect-with-us) · [Queensland record for 1RP128941](https://spatial-gis.information.qld.gov.au/arcgis/rest/services/PlanningCadastre/QSCF_LandParcelPropertyFramework/MapServer/120/query?where=lotplan%3D%271RP128941%27&f=pjson&outFields=lotplan%2Clocality%2Clga&returnGeometry=false)
 
-Read: [Env Documentation](packages/env/README.md)
+## Reading a Brisbane result
 
-## Boilerplate structure <a name="structure"></a>
+- River, creek and storm tide show the highest Council likelihood band recorded on any part of the selected lot. The overland flow entry means some part of the lot overlaps a mapped overland flow area.
+- **Modelled flood coverage** shows the most frequent modelled event with a positive area of overlap for each source among the 20%, 5%, 2% and 1% annual-chance scenarios. Council publishes these areas separately from its likelihood bands. A lot can have modelled coverage without a likelihood flag.
+- Recorded historical flood levels are elevations in metres above the Australian Height Datum (m AHD). Compare them with the estimated ground elevations on the lot. A date or modelled elevation alone does not establish whether water reached a building.
+- **No mapped overlap recorded** means the available record contains no likelihood or overland flow flags and no positive coverage in the modelled scenarios checked. Flooding is still possible. The popup reports an unavailable assessment separately when the parcel has no usable flood data.
+- For flood depths, planning details or an official FloodWise property report, follow the Council links. [Brisbane’s guide to flood maps and property reports](https://www.brisbane.qld.gov.au/community-support-and-safety/natural-disasters-and-emergencies/flooding-in-brisbane/flood-maps-and-reports)
 
-### Chrome extension <a name="structure-chrome-extension"></a>
+## Data and privacy
 
-The extension lives in the `chrome-extension` directory and includes the following files:
+The popup reads the active tab’s title and URL locally to prefill supported listings. Submitting a search sends address components or the lot and plan to the selected councils’ data hosts. Brisbane uses `data.brisbane.qld.gov.au`. Logan uses `services5.arcgis.com` for address and parcel records and `arcgis.lcc.wspdigital.com` for parcel intersections with flood mapping. Opening a report or map sends its parcel identifier or property key to the council website. The extension keeps no search history.
 
-- [`manifest.ts`](chrome-extension/manifest.ts) - script that outputs the `manifest.json`
-- [`src/background`](chrome-extension/src/background) - [background script](https://developer.chrome.com/docs/extensions/mv3/background_pages/)
-  (`background.service_worker` in manifest.json)
-- [`public`](chrome-extension/public/) - icons referenced in the manifest; content CSS for user's page injection
+Logan City Council supplies the primary address register, cadastre and flood mapping. The primary address dataset is licensed under CC BY 3.0 Australia. The popup joins Council records and summarises map intersections. [Primary property addresses and licence](https://www.arcgis.com/home/item.html?id=38de8363dd93425199ac449eac4b1891) · [Logan cadastre](https://services5.arcgis.com/ZUCWDRj8F77Xo351/arcgis/rest/services/VIEW_Latest_Cadastre/FeatureServer/0) · [Logan flood map service](https://arcgis.lcc.wspdigital.com/server/rest/services/FloodPortal/ConsolidatedFloodData_20250505/MapServer)
 
-> [!IMPORTANT]
-> To facilitate development, the boilerplate is configured to "Read and change all your data on all websites".
-> In production, it's best practice to limit the premissions to only the strictly necessary websites. See
-> [Declaring permissions](https://developer.chrome.com/docs/extensions/develop/concepts/declare-permissions)
-> and edit `manifest.js` accordingly.
+Brisbane parcel boundaries are © Brisbane City Council and © State of Queensland (Department of Resources). Address and flood records are © Brisbane City Council. The extension matches addresses to parcels and summarises Council’s likelihood flags, modelled flood coverage, historical levels and estimated ground elevations. The four Brisbane datasets are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
-### Pages <a name="structure-pages"></a>
+- [Property address locations](https://data.brisbane.qld.gov.au/explore/dataset/property-address-locations/)
+- [Property boundaries — Parcel](https://data.brisbane.qld.gov.au/explore/dataset/property-boundaries-parcel/)
+- [Flood awareness property parcel metrics](https://data.brisbane.qld.gov.au/explore/dataset/flood-awareness-property-parcel-metrics/)
+- [Council’s metric definitions](https://data.brisbane.qld.gov.au/explore/dataset/flood-awareness-property-parcel-metrics-reference/)
 
-Code that is transpiled to be part of the extension lives in the [pages](pages) directory.
+## Build from source
 
-- [`content`](pages/content) - Scripts injected into specified pages (You can see it in console)
-- [`content-ui`](pages/content-ui) - React Components injected into specified pages (You can see it at the very bottom of pages)
-- [`content-runtime`](pages/content-runtime/src/) - [injected content scripts](https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts#functionality)
-  This can be injected from e.g. `popup` like standard `content`
-- [`devtools`](pages/devtools/) - [extend the browser DevTools](https://developer.chrome.com/docs/extensions/how-to/devtools/extend-devtools#creating)
-  (`devtools_page` in manifest.json)
-- [`devtools-panel`](pages/devtools-panel/) - [DevTools panel](https://developer.chrome.com/docs/extensions/reference/api/devtools/panels)
-  for [devtools](pages/devtools/src/index.ts)
-- [`new-tab`](pages/new-tab/) - [override the default New Tab page](https://developer.chrome.com/docs/extensions/develop/ui/override-chrome-pages)
-  (`chrome_url_overrides.newtab` in manifest.json)
-- [`options`](pages/options/) - [options page](https://developer.chrome.com/docs/extensions/develop/ui/options-page)
-  (`options_page` in manifest.json)
-- [`popup`](pages/popup/) - [popup](https://developer.chrome.com/docs/extensions/reference/api/action#popup) shown when
-  clicking the extension in the toolbar
-  (`action.default_popup` in manifest.json)
-- [`side-panel`](pages/side-panel/) - [sidepanel (Chrome 114+)](https://developer.chrome.com/docs/extensions/reference/api/sidePanel)
-  (`side_panel.default_path` in manifest.json)
+Use Node.js 22.15.1 or newer and pnpm 10.11.0. Run these commands from the repository root.
 
-### Packages <a name="structure-packages"></a>
+```sh
+pnpm install --frozen-lockfile
+pnpm build
+```
 
-Some shared packages:
+This writes the unpacked extension to `dist/`. Run `pnpm zip` to rebuild it and create `dist-zip/will-it-flood.zip`.
 
-- `dev-utils` - utilities for Chrome extension development (manifest-parser, logger)
-- `env` - exports object which contain all environment variables from `.env` and dynamically declared
-- `hmr` - custom HMR plugin for Vite, injection script for reload/refresh, HMR dev-server
-- `i18n` - custom internationalization package; provides i18n function with type safety and other validation
-- `shared` - shared code for the entire project (types, constants, custom hooks, components etc.)
-- `storage` - helpers for easier integration with [storage](https://developer.chrome.com/docs/extensions/reference/api/storage), e.g. local/session storages
-- `tailwind-config` - shared Tailwind config for entire project
-- `tsconfig` - shared tsconfig for the entire project
-- `ui` - function to merge your Tailwind config with the global one; you can save components here
-- `vite-config` - shared Vite config for the entire project
+For a personal Android APK, run `pnpm build` followed by `bash android/build.sh`. The script uses a JDK, Android SDK Platform 36, Android Build Tools 35.0.0 and the local Android debug signing key. It writes `dist-zip/will-it-flood-android.apk`.
 
-Other useful packages:
-
-- `zipper` - run `pnpm zip` to pack the `dist` folder into `extension-YYYYMMDD-HHmmss.zip` inside the newly created
-  `dist-zip`
-- `module-manager` - run `pnpm module-manager` to enable/disable modules
-- `e2e` - run `pnpm e2e` for end-to-end tests of your zipped extension on different browsers
-
-## Troubleshooting
-
-### Hot module reload seems to have frozen
-
-If saving source files doesn't cause the extension HMR code to trigger a reload of the browser page, try this:
-
-1. Ctrl+C the development server and restart it (`pnpm run dev`)
-2. If you get a [`grpc` error](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/issues/612),
-   [kill the
-   `turbo` process](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/issues/612#issuecomment-2518982339)
-   and run `pnpm dev` again.
-
-### Imports not resolving correctly
-
-If you are using WSL and imports are not resolving correctly, ensure that you have connected VS Code to WSL remotely using the [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) extension.
-
-## Community
-
-To chat with other community members, you can join the [Discord](https://discord.gg/4ERQ6jgV9a) server.
-You can ask questions on that server, and you can also help others.
-
-Also, suggest new features or share any challenges you've faced while developing Chrome extensions!
-
-## Debugging
-
-If you're debugging one, you can use [Brie](https://go.briehq.com/github?utm_source=CEB) lets you capture screenshots, errors, and network activity, making it easier for us to help.
-
-## Reference
-
-- [Chrome Extensions](https://developer.chrome.com/docs/extensions)
-- [Vite Plugin](https://vitejs.dev/guide/api-plugin.html)
-- [Rollup](https://rollupjs.org/guide/en/)
-- [Turborepo](https://turbo.build/repo/docs)
-- [Rollup-plugin-chrome-extension](https://www.extend-chrome.dev/rollup-plugin)
-
-## Star History <a name="star-history"></a>
-
-<a href="https://star-history.com/#Jonghakseo/chrome-extension-boilerplate-react-vite&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Jonghakseo/chrome-extension-boilerplate-react-vite&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Jonghakseo/chrome-extension-boilerplate-react-vite&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Jonghakseo/chrome-extension-boilerplate-react-vite&type=Date" />
- </picture>
-</a>
-
-## Contributors <a name="contributors"></a>
-
-This Boilerplate is made possible thanks to all of its contributors.
-
-<a href="https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/graphs/contributors">
-  <img width="500px" src="https://contrib.rocks/image?repo=Jonghakseo/chrome-extension-boilerplate-react-vite" alt="All Contributors"/>
-</a>
-
----
-
-## Special Thanks To
-
-| <a href="https://jb.gg/OpenSourceSupport"><img width="40" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains Logo (Main) logo."></a> | <a href="https://www.linkedin.com/in/j-acks0n"><img width="40" style="border-radius:50%" src='https://avatars.githubusercontent.com/u/23139754' alt='Jackson Hong'/></a> |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-
----
-
-Made by [Jonghakseo](https://jonghakseo.github.io/)
+Run `pnpm test` for the lookup and listing tests, `pnpm type-check` for TypeScript, and `pnpm e2e` to exercise the packaged popup in Chrome for Testing. Set `E2E_LIVE_COUNCIL=true` to include live lookups for Brisbane Powerhouse and the Beenleigh Customer Service Centre.
