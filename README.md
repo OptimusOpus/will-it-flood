@@ -51,6 +51,8 @@ Council lists the Beenleigh example as a public service centre. Queensland’s l
 
 ## Data and privacy
 
+See the [Chrome extension privacy policy](PRIVACY.md) for the information used in a lookup and the services that receive it.
+
 The popup reads the active tab’s title and URL locally to prefill supported listings. Submitting a search sends address components or the lot and plan to the selected councils’ data hosts. Brisbane uses `data.brisbane.qld.gov.au`. Logan uses `services5.arcgis.com` for address and parcel records and `arcgis.lcc.wspdigital.com` for parcel intersections with flood mapping. Opening a report or map sends its parcel identifier or property key to the council website. The extension keeps no search history.
 
 Logan City Council supplies the primary address register, cadastre and flood mapping. The primary address dataset is licensed under CC BY 3.0 Australia. The popup joins Council records and summarises map intersections. [Primary property addresses and licence](https://www.arcgis.com/home/item.html?id=38de8363dd93425199ac449eac4b1891) · [Logan cadastre](https://services5.arcgis.com/ZUCWDRj8F77Xo351/arcgis/rest/services/VIEW_Latest_Cadastre/FeatureServer/0) · [Logan flood map service](https://arcgis.lcc.wspdigital.com/server/rest/services/FloodPortal/ConsolidatedFloodData_20250505/MapServer)
